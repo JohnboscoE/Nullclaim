@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+out/
+
+# Environment files — NEVER commit these
+.env
+.env.local
+.env.*.local
+*.env
+
+# Hardhat
+artifacts/
+cache/
+typechain/
+typechain-types/
+
+# Vite
+.vite/
+
+# TypeScript
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Railway / Vercel
+.vercel/
