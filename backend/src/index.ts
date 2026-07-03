@@ -8,9 +8,15 @@ import { relayerRoutes } from "./routes/relayer";
 dotenv.config();
 
 const app  = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 
-app.use(cors({ origin: "*" }));
+app.use(cors({
+  origin: [
+    "https://nullclaim-olive.vercel.app",
+    "http://localhost:3000",
+    "*"
+  ]
+}));
 app.use(express.json());
 
 app.use("/api/claims",         claimRoutes);
