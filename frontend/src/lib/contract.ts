@@ -1,25 +1,7 @@
-import { getAddress } from "viem";
-
-const FALLBACK_CONTRACT_ADDRESS = "0xa5b92d268e8c3502b1be0d18e2495469f15ad9dc" as `0x${string}`;
-
-function normalizeAddress(value: string | undefined, fallback: `0x${string}`): `0x${string}` {
-  if (!value) return fallback;
-
-  try {
-    return getAddress(value.trim()) as `0x${string}`;
-  } catch {
-    return fallback;
-  }
-}
-
-export const CONTRACT_ADDRESS = normalizeAddress(
-  import.meta.env.VITE_CONTRACT_ADDRESS,
-  FALLBACK_CONTRACT_ADDRESS
-);
-
-export function normalizeEvmAddress(value: string): `0x${string}` {
-  return getAddress(value.trim()) as `0x${string}`;
-}
+export const CONTRACT_ADDRESS = (
+  import.meta.env.VITE_CONTRACT_ADDRESS ||
+  "0x9fd209f70f4952f05beea3a92f282571ef8331e9"
+) as `0x${string}`;
 
 export const NULL_CLAIM_ABI = [
   // ── Write ──────────────────────────────────────────────────────────
