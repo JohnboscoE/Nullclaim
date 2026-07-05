@@ -1,13 +1,8 @@
-import { createInstance, SepoliaConfig } from "@zama-fhe/relayer-sdk/web";
+import { createInstance, initSDK, SepoliaConfig } from "@zama-fhe/relayer-sdk/web";
 import type { FhevmInstance } from "@zama-fhe/relayer-sdk/web";
 import { CONTRACT_ADDRESS } from "./contract";
 
 let instance: FhevmInstance | null = null;
-
-// Backend proxy avoids browser CORS block on the Zama relayer
-// The proxy forwards requests to https://relayer.testnet.zama.cloud
-const BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
-const RELAYER_PROXY_URL = `${BACKEND_URL}/api/relayer/11155111`;
 
 function bytesToHex(bytes: Uint8Array): `0x${string}` {
   return `0x${Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("")}`;
@@ -16,14 +11,17 @@ function bytesToHex(bytes: Uint8Array): `0x${string}` {
 export async function getFhevmInstance(): Promise<FhevmInstance> {
   if (instance) return instance;
 
-  console.log("Initializing FHE via backend proxy:", RELAYER_PROXY_URL);
+  // Initialize the WASM SDK first
+  await initSDK();
 
+  // Use window.ethereum as the network provider — this is the correct pattern
+  // SepoliaConfig includes the correct relayerUrl and all contract addresses
   instance = await createInstance({
     ...SepoliaConfig,
-    relayerUrl: RELAYER_PROXY_URL,
+    network: (window as Window & { ethereum?: unknown }).ethereum,
   });
 
-  console.log("FHE instance ready");
+  console.log("FHE instance initialized");
   return instance;
 }
 
