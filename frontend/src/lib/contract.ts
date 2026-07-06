@@ -1,6 +1,6 @@
 export const CONTRACT_ADDRESS = (
   import.meta.env.VITE_CONTRACT_ADDRESS ||
-  "0x9fd209f70f4952f05beea3a92f282571ef8331e9"
+  "0x8702e8fa11d5619dbed1db48f17ce7c873ac6a51"
 ) as `0x${string}`;
 
 export const NULL_CLAIM_ABI = [
