@@ -1,5 +1,6 @@
 import { createInstance, initSDK, SepoliaConfig } from "@zama-fhe/relayer-sdk/web";
 import type { FhevmInstance } from "@zama-fhe/relayer-sdk/web";
+import { getAddress } from "viem";
 import { CONTRACT_ADDRESS } from "./contract";
 
 let instance: FhevmInstance | null = null;
